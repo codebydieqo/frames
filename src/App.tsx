@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="flex items-center mb-4 md:mb-0">
             <Camera className="h-5 w-5 text-blue-600 mr-2" />
-            <span className="text-sm font-medium text-gray-700">FrameFlow</span>
+            <span className="text-sm font-medium text-gray-700">FrameIo</span>
           </div>
 
           <div className="text-sm text-gray-500">
