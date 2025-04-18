@@ -5,7 +5,7 @@ import UploadStep from "./steps/UploadStep";
 import SizeStep from "./steps/SizeStep";
 import CropStep from "./steps/CropStep";
 import DownloadStep from "./steps/DownloadStep";
-import { Camera, Github } from "lucide-react";
+import { Camera } from "lucide-react";
 
 // Main app container
 const AppContainer: React.FC = () => {
@@ -30,7 +30,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4 py-4 flex items-center w-full max-w-screen-xl">
         <div className="flex items-center">
           <Camera className="h-8 w-8 text-blue-600 mr-2" />
-          <h1 className="text-xl font-bold text-gray-800">FrameFlow</h1>
+          <h1 className="text-xl font-bold text-gray-800">FramesIo</h1>
         </div>
         <div className="ml-auto text-sm text-gray-500">Photo Framing Tool</div>
       </div>
