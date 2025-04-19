@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Download, FileDown, Loader2, RefreshCw } from 'lucide-react';
-import { useImageContext } from '../contexts/ImageContext';
-import Button from '../components/Button';
-import ImagePreview from '../components/ImagePreview';
-import { generatePDF } from '../utils/helpers';
+import React, { useEffect, useState } from "react";
+import { Download, FileDown, Loader2, RefreshCw } from "lucide-react";
+import { useImageContext } from "../contexts/ImageContext";
+import Button from "../components/Button";
+import ImagePreview from "../components/ImagePreview";
+import { generatePDF } from "../utils/helpers";
 
 const DownloadStep: React.FC = () => {
   const { images, pdfUrl, setPdfUrl, resetImages } = useImageContext();
@@ -20,21 +20,23 @@ const DownloadStep: React.FC = () => {
   const handleGeneratePDF = async () => {
     setIsGenerating(true);
     setError(null);
-    
+
     try {
       // Check if all images have been cropped
-      const uncropped = images.filter(img => !img.croppedPreview);
+      const uncropped = images.filter((img) => !img.croppedPreview);
       if (uncropped.length > 0) {
-        setError(`${uncropped.length} images are not cropped. Please go back and crop all images.`);
+        setError(
+          `${uncropped.length} images are not cropped. Please go back and crop all images.`
+        );
         setIsGenerating(false);
         return;
       }
-      
+
       const url = await generatePDF(images);
       setPdfUrl(url);
     } catch (err) {
-      console.error('Error generating PDF:', err);
-      setError('Failed to generate PDF. Please try again.');
+      console.error("Error generating PDF:", err);
+      setError("Failed to generate PDF. Please try again.");
     } finally {
       setIsGenerating(false);
     }
@@ -42,11 +44,11 @@ const DownloadStep: React.FC = () => {
 
   const handleDownload = () => {
     if (!pdfUrl) return;
-    
+
     // Create a link and trigger download
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = pdfUrl;
-    link.download = 'photo-frames.pdf';
+    link.download = "photo-frames.pdf";
     link.click();
   };
 
@@ -56,11 +58,16 @@ const DownloadStep: React.FC = () => {
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">Download Your Images</h2>
-      
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">
+        Download Your Images
+      </h2>
+
       {isGenerating ? (
         <div className="text-center py-12">
-          <Loader2 className="animate-spin mx-auto mb-4 text-blue-600" size={48} />
+          <Loader2
+            className="animate-spin mx-auto mb-4 text-blue-600"
+            size={48}
+          />
           <p className="text-gray-700">Generating your PDF...</p>
         </div>
       ) : error ? (
@@ -79,10 +86,12 @@ const DownloadStep: React.FC = () => {
           <p className="text-gray-600 mb-6">
             Your images have been processed and are ready for download.
           </p>
-          
+
           {/* Preview of cropped images */}
           <div className="mb-8">
-            <h3 className="text-lg font-medium text-gray-800 mb-3">Processed Images</h3>
+            <h3 className="text-lg font-medium text-gray-800 mb-3">
+              Processed Images
+            </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {images.map((image) => (
                 <ImagePreview
@@ -96,15 +105,18 @@ const DownloadStep: React.FC = () => {
               ))}
             </div>
           </div>
-          
+
           {/* PDF preview and download */}
           {pdfUrl && (
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-medium text-gray-800">Your PDF is ready</h3>
+              <div className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 items-center justify-between mb-4">
+                <h3 className="text-lg font-medium text-gray-800">
+                  Your PDF is ready
+                </h3>
                 <Button
                   onClick={handleDownload}
                   icon={<Download size={18} />}
+                  className="w-full lg:w-auto"
                 >
                   Download PDF
                 </Button>
@@ -114,17 +126,18 @@ const DownloadStep: React.FC = () => {
                 <span className="text-gray-700">photo-frames.pdf</span>
               </div>
               <p className="mt-4 text-sm text-gray-600">
-                Your images have been arranged on a letter-sized document (8.5×11 inches) 
-                for easy printing.
+                Your images have been arranged on a letter-sized document
+                (8.5×11 inches) for easy printing.
               </p>
             </div>
           )}
-          
+
           {/* Start over button */}
           <div className="text-center mt-8">
             <Button
               onClick={handleStartOver}
               variant="outline"
+              className="w-full lg:w-auto"
             >
               Start Over with New Images
             </Button>

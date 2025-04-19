@@ -142,6 +142,7 @@ const UploadStep: React.FC = () => {
           onClick={handleContinue}
           disabled={images.length === 0}
           icon={<Image size={18} />}
+          className="w-full lg:w-auto"
         >
           Continue to Size Selection
         </Button>

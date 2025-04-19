@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react';
-import Cropper from 'react-easy-crop';
-import { ArrowLeft, ArrowRight, Crop as CropIcon } from 'lucide-react';
-import { useImageContext } from '../contexts/ImageContext';
-import Button from '../components/Button';
-import { createCroppedImage } from '../utils/helpers';
-import { getAspectRatio } from '../utils/helpers';
+import React, { useState, useCallback } from "react";
+import Cropper from "react-easy-crop";
+import { ArrowLeft, Crop as CropIcon } from "lucide-react";
+import { useImageContext } from "../contexts/ImageContext";
+import Button from "../components/Button";
+import { createCroppedImage } from "../utils/helpers";
+import { getAspectRatio } from "../utils/helpers";
 
 interface Point {
   x: number;
@@ -19,7 +19,8 @@ interface Area {
 }
 
 const CropStep: React.FC = () => {
-  const { images, updateImageCrop, nextStep, prevStep, selectedSize } = useImageContext();
+  const { images, updateImageCrop, nextStep, prevStep, selectedSize } =
+    useImageContext();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -40,9 +41,9 @@ const CropStep: React.FC = () => {
         activeImage.preview,
         croppedArea
       );
-      
+
       updateImageCrop(activeImage.id, croppedImageUrl, croppedArea);
-      
+
       // Move to next image or complete
       if (activeImageIndex < images.length - 1) {
         setActiveImageIndex(activeImageIndex + 1);
@@ -54,7 +55,7 @@ const CropStep: React.FC = () => {
         nextStep();
       }
     } catch (e) {
-      console.error('Error creating cropped image:', e);
+      console.error("Error creating cropped image:", e);
     }
   };
 
@@ -69,31 +70,34 @@ const CropStep: React.FC = () => {
     }
   };
 
-  const handleBackToSizes = () => {
-    prevStep();
-  };
-
   return (
     <div className="w-full max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold text-gray-800 mb-2">Crop Your Images</h2>
+      <h2 className="text-2xl font-bold text-gray-800 mb-2">
+        Crop Your Images
+      </h2>
       <p className="text-gray-600 mb-4">
-        Adjust the crop area for each image ({activeImageIndex + 1} of {images.length})
+        Adjust the crop area for each image ({activeImageIndex + 1} of{" "}
+        {images.length})
       </p>
 
       {/* Image selector thumbnails */}
       <div className="mb-6 flex space-x-2 overflow-x-auto pb-2">
         {images.map((image, index) => (
-          <div 
+          <div
             key={image.id}
             onClick={() => setActiveImageIndex(index)}
             className={`
               w-16 h-16 flex-shrink-0 cursor-pointer rounded border-2
-              ${activeImageIndex === index ? 'border-blue-600' : 'border-transparent'}
-              ${image.croppedPreview ? 'ring-2 ring-green-500' : ''}
+              ${
+                activeImageIndex === index
+                  ? "border-blue-600"
+                  : "border-transparent"
+              }
+              ${image.croppedPreview ? "ring-2 ring-green-500" : ""}
             `}
           >
-            <img 
-              src={image.preview} 
+            <img
+              src={image.preview}
               alt={`Thumbnail ${index + 1}`}
               className="w-full h-full object-cover rounded"
             />
@@ -102,7 +106,10 @@ const CropStep: React.FC = () => {
       </div>
 
       {/* Cropper */}
-      <div className="relative bg-gray-800 rounded-lg overflow-hidden" style={{ height: '50vh', minHeight: '400px' }}>
+      <div
+        className="relative bg-gray-800 rounded-lg overflow-hidden"
+        style={{ height: "50vh", minHeight: "400px" }}
+      >
         {activeImage && (
           <Cropper
             image={activeImage.preview}
@@ -119,7 +126,10 @@ const CropStep: React.FC = () => {
 
       {/* Zoom slider */}
       <div className="mt-4 px-4">
-        <label htmlFor="zoom-slider" className="block text-sm font-medium text-gray-700 mb-1">
+        <label
+          htmlFor="zoom-slider"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
           Zoom: {zoom.toFixed(1)}×
         </label>
         <input
@@ -135,19 +145,23 @@ const CropStep: React.FC = () => {
       </div>
 
       {/* Navigation buttons */}
-      <div className="mt-8 flex justify-between">
+      <div className="mt-8 flex justify-between space-x-4">
         <Button
           onClick={goToPreviousImage}
           variant="outline"
           icon={<ArrowLeft size={18} />}
+          className="w-1/2"
         >
-          {activeImageIndex > 0 ? 'Previous Image' : 'Back to Sizes'}
+          {activeImageIndex > 0 ? "Previous Image" : "Back to Sizes"}
         </Button>
         <Button
           onClick={saveCrop}
           icon={<CropIcon size={18} />}
+          className="w-1/2"
         >
-          {activeImageIndex < images.length - 1 ? 'Save & Next Image' : 'Finish Cropping'}
+          {activeImageIndex < images.length - 1
+            ? "Next Image"
+            : "Finish Cropping"}
         </Button>
       </div>
     </div>

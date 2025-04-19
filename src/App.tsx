@@ -30,7 +30,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4 py-4 flex items-center w-full max-w-screen-xl">
         <div className="flex items-center">
           <Camera className="h-8 w-8 text-blue-600 mr-2" />
-          <h1 className="text-xl font-bold text-gray-800">FramesIo</h1>
+          <h1 className="text-xl font-bold text-gray-800">Frames.io</h1>
         </div>
         <div className="ml-auto text-sm text-gray-500">Photo Framing Tool</div>
       </div>
@@ -73,10 +73,10 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="flex items-center mb-4 md:mb-0">
             <Camera className="h-5 w-5 text-blue-600 mr-2" />
-            <span className="text-sm font-medium text-gray-700">FrameIo</span>
+            <span className="text-sm font-medium text-gray-700">Frames.io</span>
           </div>
 
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-gray-500 text-center">
             Create perfectly sized photos for your frames in seconds
           </div>
         </div>
